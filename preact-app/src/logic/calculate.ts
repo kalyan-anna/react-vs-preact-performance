@@ -12,12 +12,19 @@ import isNumber from './isNumber';
  *   next:String       the next number to be operated on with the total
  *   operation:String  +, -, etc.
  */
-export default function calculate(obj: any, buttonName: string) {
+export default function calculate(
+  obj: any,
+  buttonName: string
+): {
+  total?: string;
+  next?: string;
+  operation?: string;
+} {
   if (buttonName === 'AC') {
     return {
-      total: null,
-      next: null,
-      operation: null,
+      total: undefined,
+      next: undefined,
+      operation: undefined,
     };
   }
 
@@ -37,12 +44,12 @@ export default function calculate(obj: any, buttonName: string) {
       const next = obj.next === '0' ? buttonName : obj.next + buttonName;
       return {
         next,
-        total: null,
+        total: undefined,
       };
     }
     return {
       next: buttonName,
-      total: null,
+      total: undefined,
     };
   }
 
@@ -51,8 +58,8 @@ export default function calculate(obj: any, buttonName: string) {
       const result = operate(obj.total, obj.next, obj.operation);
       return {
         total: Big(result).div(Big('100')).toString(),
-        next: null,
-        operation: null,
+        next: undefined,
+        operation: undefined,
       };
     }
     if (obj.next) {
@@ -78,8 +85,8 @@ export default function calculate(obj: any, buttonName: string) {
     if (obj.next && obj.operation) {
       return {
         total: operate(obj.total, obj.next, obj.operation),
-        next: null,
-        operation: null,
+        next: undefined,
+        operation: undefined,
       };
     } else {
       // '=' with no operation, nothing to do
@@ -109,7 +116,7 @@ export default function calculate(obj: any, buttonName: string) {
   if (obj.operation) {
     return {
       total: operate(obj.total, obj.next, obj.operation),
-      next: null,
+      next: undefined,
       operation: buttonName,
     };
   }
@@ -124,7 +131,7 @@ export default function calculate(obj: any, buttonName: string) {
   // save the operation and shift 'next' into 'total'
   return {
     total: obj.next,
-    next: null,
+    next: undefined,
     operation: buttonName,
   };
 }

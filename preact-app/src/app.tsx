@@ -4,11 +4,17 @@ import ButtonPanel from './component/ButtonPanel';
 import calculate from './logic/calculate';
 import './App.css';
 
+type CalcState = {
+  total?: string;
+  next?: string;
+  operation?: string;
+};
+
 export default function App() {
-  const [state, setState] = useState({
-    total: '',
-    next: '',
-    operation: '',
+  const [state, setState] = useState<CalcState>({
+    total: undefined,
+    next: undefined,
+    operation: undefined,
   });
 
   const handleClick = (buttonName: string) => {
