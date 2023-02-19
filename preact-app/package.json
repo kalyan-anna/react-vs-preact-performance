@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "big.js": "^6.2.1",
     "preact": "^10.11.3"
   },
   "devDependencies": {

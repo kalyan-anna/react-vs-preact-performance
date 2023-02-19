@@ -1,32 +1,27 @@
-import { useState } from 'preact/hooks'
-import preactLogo from './assets/preact.svg'
-import './app.css'
+import { useState } from 'preact/hooks';
+import Display from './component/Display';
+import ButtonPanel from './component/ButtonPanel';
+import calculate from './logic/calculate';
+import './App.css';
 
-export function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [state, setState] = useState({
+    total: '',
+    next: '',
+    operation: '',
+  });
+
+  const handleClick = (buttonName: string) => {
+    setState((prevState) => ({
+      ...prevState,
+      ...calculate(state, buttonName),
+    }));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://preactjs.com" target="_blank">
-          <img src={preactLogo} class="logo preact" alt="Preact logo" />
-        </a>
-      </div>
-      <h1>Vite + Preact</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/app.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite and Preact logos to learn more
-      </p>
-    </>
-  )
+    <div className='component-app'>
+      <Display value={state.next || state.total || '0'} />
+      <ButtonPanel clickHandler={handleClick} />
+    </div>
+  );
 }
